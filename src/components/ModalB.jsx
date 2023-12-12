@@ -11,12 +11,13 @@ function ModalB() {
   const [fetchMore, setFetchMore] = useState(true);
   const inputRef = useRef(null);
   const fetchContacts = () => {
-    fetch(`https://contact.mediusware.com/api/country-contacts/bangladesh/`)
+    fetch(`https://contact.mediusware.com/api/country-contacts/United States/?page=${page}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setContacts((prev) => [...prev, ...data.results]);
         setPage((prev) => prev + 1);
+        if(!data?.next) setFetchMore(false);
       })
       .catch((err) => console.log(err.message));
   };
@@ -54,7 +55,7 @@ function ModalB() {
   
   const searchContacts = async () => {
     await fetch(
-      `https://contact.mediusware.com/api/country-contacts/bangladesh/?search=${inputRef?.current.value}`
+      `https://contact.mediusware.com/api/country-contacts/United States/?search=${inputRef?.current.value}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -63,7 +64,7 @@ function ModalB() {
           setFetchUrl(data.next);
           setFetchMore(true);
         }
-        console.log(data);
+        
       })
       .catch((err) => console.log(err.message));
   };
@@ -110,7 +111,7 @@ function ModalB() {
           zIndex: 10,
         }}
       >
-        <h2>Modal A</h2>
+        <h2>Modal B</h2>
         <div className="d-flex justify-content-center gap-3">
           <button
             className="btn btn-lg btn-outline"

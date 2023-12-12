@@ -15,6 +15,7 @@ function ModalA() {
       .then((data) => {
         setContacts((prev) => [...prev, ...data.results]);
         setPage((prev) => prev + 1);
+        if(!data?.next) setFetchMore(false);
       })
       .catch((err) => console.log(err.message));
   };
