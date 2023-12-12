@@ -15,7 +15,7 @@ function ModalA() {
       .then((data) => {
         setContacts((prev) => [...prev, ...data.results]);
         setPage((prev) => prev + 1);
-        if(!data?.next) setFetchMore(false);
+        if (!data?.next) setFetchMore(false);
       })
       .catch((err) => console.log(err.message));
   };
@@ -59,12 +59,11 @@ function ModalA() {
     )
       .then((res) => res.json())
       .then((data) => {
-        setContacts(data.results);
+        setContacts(data?.results);
         if (data?.next) {
           setFetchUrl(data.next);
           setFetchMore(true);
         }
-        console.log(data);
       })
       .catch((err) => console.log(err.message));
   };
@@ -84,8 +83,11 @@ function ModalA() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setPage(1);
     if (inputRef?.current?.value) searchContacts();
-    else fetchContacts();
+    else {
+      fetchContacts();
+    }
   };
   const handleChange = (e) => {
     setTimeout(() => {

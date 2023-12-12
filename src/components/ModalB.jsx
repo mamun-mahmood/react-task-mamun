@@ -84,8 +84,11 @@ function ModalB() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setPage(1);
     if (inputRef?.current?.value) searchContacts();
-    else fetchContacts();
+    else {
+      fetchContacts()
+    };
   };
   const handleChange = (e) => {
     setTimeout(() => {
